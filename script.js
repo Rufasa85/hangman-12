@@ -22,10 +22,10 @@ var isPlaying = false;
 // Start game when cilck start button
 startBtn.addEventListener("click",function(){
     //EDGECASE: user clicks start while game is running
-    //randomly choose a word
     if(isPlaying){
         return;
     }
+    //randomly choose a word
     randomWord = words[Math.floor(Math.random()*words.length)]
     //figure out how many letters are in the word
     numLetters = randomWord.length;
@@ -41,8 +41,8 @@ startBtn.addEventListener("click",function(){
     timer = setInterval(function(){
         timeLeft--;
         timeLeftSpan.textContent=timeLeft
+        // if time runs out, lose
         if(!timeLeft){
-            // if time runs out, lose
             console.log("you lose")
             losses++;
             lossSpan.textContent=losses;
@@ -55,13 +55,13 @@ startBtn.addEventListener("click",function(){
 })
 // listen for keystrokes
 document.addEventListener("keyup",function(event){
+    // edge case: user pushes keys before game starts
     if(!isPlaying){
         return;
     }
-    // edge case: user pushes keys before game starts
     console.log(event.key);
+    // if key is in word, switch _ to the letter
     if(randomWord.includes(event.key)){
-        // if key is in word, switch _ to the letter
         for (let i = 0; i < randomWord.length; i++) {
             if(event.key===randomWord[i]){
                 userGuesses[i]=event.key
